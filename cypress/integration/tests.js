@@ -31,8 +31,10 @@ describe('Url shortener tests', () => {
   })
 
   it('should be able to type in the forms', () => {
-    cy.get('input[name="title"]').type('Pizza').should('have.value', 'Pizza')
-    cy.get('input[name="urlToShorten"]')
+    cy.get('input[name="title"]')
+      .type('Pizza')
+      .should('have.value', 'Pizza')
+      .get('input[name="urlToShorten"]')
       .type('www.pizza.example.com')
       .should('have.value', 'www.pizza.example.com')
   })

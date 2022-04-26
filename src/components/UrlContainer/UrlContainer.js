@@ -1,22 +1,21 @@
 import React from 'react'
 import './UrlContainer.css'
-import { deleteUrl, getUrls } from '../../apiCalls'
+import { deleteUrl } from '../../apiCalls'
 
 const UrlContainer = (props) => {
   const handleDelete = (e) => {
-    deleteUrl(e.target.id)
-      .then((res) => {
-        if (res.status === 204) {
-          props.setErrorMsg('Successfully Deleted URL!')
-        }
+    const idToDelete = parseInt(e.target.id)
+    props.setUrls((prev) =>
+      prev.filter((url) => {
+        return url.id !== idToDelete
       })
-      .then(() => {
-        getUrls()
-          .then((data) => {
-            props.setUrls(data.urls)
-          })
-          .catch((err) => props.setErrorMsg(err))
-      })
+    )
+    deleteUrl(e.target.id).then((res) => {
+      console.log(e.target)
+      if (res.status === 204) {
+        props.setErrorMsg('Successfully Deleted URL!')
+      }
+    })
   }
 
   const urlEls = props.urls.map((url) => {

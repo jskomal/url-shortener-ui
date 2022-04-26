@@ -19,12 +19,18 @@ class UrlForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     if (this.validateInputs()) {
-      postUrls({ title: this.state.title, long_url: this.state.urlToShorten }).then(
-        (data) => {
+      postUrls({ title: this.state.title, long_url: this.state.urlToShorten })
+        .then((res) => {
+          if (!res.ok) {
+            this.props.setErrorMsg(res)
+          } else {
+            return res
+          }
+        })
+        .then((data) => {
           this.props.setUrls((prev) => [...prev, data])
           this.setState({ statusMsg: '' })
-        }
-      )
+        })
     } else {
       this.setState({
         statusMsg: 'You may not submit without values for both the title and the URL'

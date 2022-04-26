@@ -1,26 +1,33 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { postUrls } from '../../apiCalls'
 
 class UrlForm extends Component {
   constructor(props) {
-    super();
-    this.props = props;
+    super()
+    this.props = props
     this.state = {
       title: '',
       urlToShorten: ''
-    };
+    }
   }
 
-  handleNameChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleNameChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-    this.clearInputs();
+  handleSubmit = (e) => {
+    e.preventDefault()
+    postUrls({ title: this.state.title, long_url: this.state.urlToShorten }).then(
+      (data) => {
+        console.log(data)
+        this.props.setUrls((prev) => [...prev, data])
+      }
+    )
+    this.clearInputs()
   }
 
   clearInputs = () => {
-    this.setState({title: '', urlToShorten: ''});
+    this.setState({ title: '', urlToShorten: '' })
   }
 
   render() {
@@ -31,23 +38,21 @@ class UrlForm extends Component {
           placeholder='Title...'
           name='title'
           value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
+          onChange={(e) => this.handleNameChange(e)}
         />
 
         <input
           type='text'
           placeholder='URL to Shorten...'
-          name='title'
-          value={this.state.title}
-          onChange={e => this.handleNameChange(e)}
+          name='urlToShorten'
+          value={this.state.urlToShorten}
+          onChange={(e) => this.handleNameChange(e)}
         />
 
-        <button onClick={e => this.handleSubmit(e)}>
-          Shorten Please!
-        </button>
+        <button onClick={(e) => this.handleSubmit(e)}>Shorten Please!</button>
       </form>
     )
   }
 }
 
-export default UrlForm;
+export default UrlForm

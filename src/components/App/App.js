@@ -17,7 +17,7 @@ export const App = () => {
     <main className='App'>
       <header>
         <h1>URL Shortener</h1>
-        <UrlForm />
+        <UrlForm setUrls={setUrls} />
       </header>
 
       <UrlContainer urls={urls} />

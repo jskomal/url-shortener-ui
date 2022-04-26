@@ -32,4 +32,8 @@ describe('Extension Tests', () => {
       .get('h2')
       .contains('Unprocessable Entity')
   })
+
+  it('should be able to delete an entity', () => {
+    cy.visit('http://localhost:3000/').get('button[id=2]').click()
+  })
 })

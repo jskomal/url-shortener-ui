@@ -21,7 +21,7 @@ export const App = () => {
       <header>
         <h1>URL Shortener</h1>
         <h2>{errorMsg}</h2>
-        <UrlForm setUrls={setUrls} />
+        <UrlForm setUrls={setUrls} setErrorMsg={setErrorMsg} />
       </header>
 
       <UrlContainer urls={urls} />

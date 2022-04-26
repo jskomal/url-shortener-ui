@@ -9,5 +9,5 @@ export const postUrls = (message) => {
     headers: {
       'Content-Type': 'application/json'
     }
-  }).then((res) => res.json())
+  })
 }

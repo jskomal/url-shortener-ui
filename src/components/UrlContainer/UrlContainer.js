@@ -1,7 +1,24 @@
 import React from 'react'
 import './UrlContainer.css'
+import { deleteUrl, getUrls } from '../../apiCalls'
 
 const UrlContainer = (props) => {
+  const handleDelete = (e) => {
+    deleteUrl(e.target.id)
+      .then((res) => {
+        if (res.status === 204) {
+          props.setErrorMsg('Successfully Deleted URL!')
+        }
+      })
+      .then(() => {
+        getUrls()
+          .then((data) => {
+            props.setUrls(data.urls)
+          })
+          .catch((err) => props.setErrorMsg(err))
+      })
+  }
+
   let urlEls
   if (props.urls) {
     urlEls = props.urls.map((url) => {
@@ -12,6 +29,9 @@ const UrlContainer = (props) => {
             {url.short_url}
           </a>
           <p>{url.long_url}</p>
+          <button onClick={handleDelete} id={url.id}>
+            delete
+          </button>
         </div>
       )
     })

@@ -9,11 +9,7 @@ export const App = () => {
 
   useEffect(() => {
     getUrls().then((data) => {
-      const fetched = data.urls
-      const mapped = fetched.map((link) => {
-        return { ...link, key: Date.now() }
-      })
-      setUrls(mapped)
+      setUrls(data.urls)
     })
   }, [])
 

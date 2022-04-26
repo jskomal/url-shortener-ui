@@ -34,6 +34,10 @@ describe('Extension Tests', () => {
   })
 
   it('should be able to delete an entity', () => {
-    cy.visit('http://localhost:3000/').get('button[id=2]').click()
+    cy.visit('http://localhost:3000/')
+      .get('button[id=2]')
+      .click()
+      .get('button[id=2]')
+      .should('not.exist')
   })
 })

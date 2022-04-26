@@ -11,7 +11,6 @@ const UrlContainer = (props) => {
       })
     )
     deleteUrl(e.target.id).then((res) => {
-      console.log(e.target)
       if (res.status === 204) {
         props.setErrorMsg('Successfully Deleted URL!')
       }

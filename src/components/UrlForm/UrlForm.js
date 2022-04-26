@@ -24,7 +24,7 @@ class UrlForm extends Component {
           if (!res.ok) {
             this.props.setErrorMsg(res.statusText)
           } else {
-            return res
+            return res.json()
           }
         })
         .then((data) => {

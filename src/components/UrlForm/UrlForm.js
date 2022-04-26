@@ -22,14 +22,16 @@ class UrlForm extends Component {
       postUrls({ title: this.state.title, long_url: this.state.urlToShorten })
         .then((res) => {
           if (!res.ok) {
-            this.props.setErrorMsg(res)
+            this.props.setErrorMsg(res.statusText)
           } else {
             return res
           }
         })
         .then((data) => {
-          this.props.setUrls((prev) => [...prev, data])
-          this.setState({ statusMsg: '' })
+          if (data) {
+            this.props.setUrls((prev) => [...prev, data])
+            this.setState({ statusMsg: '' })
+          }
         })
     } else {
       this.setState({

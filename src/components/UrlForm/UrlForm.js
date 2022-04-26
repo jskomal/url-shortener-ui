@@ -7,7 +7,8 @@ class UrlForm extends Component {
     this.props = props
     this.state = {
       title: '',
-      urlToShorten: ''
+      urlToShorten: '',
+      statusMsg: ''
     }
   }
 
@@ -17,17 +18,27 @@ class UrlForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    postUrls({ title: this.state.title, long_url: this.state.urlToShorten }).then(
-      (data) => {
-        console.log(data)
-        this.props.setUrls((prev) => [...prev, data])
-      }
-    )
+    if (this.validateInputs()) {
+      postUrls({ title: this.state.title, long_url: this.state.urlToShorten }).then(
+        (data) => {
+          this.props.setUrls((prev) => [...prev, data])
+          this.setState({ statusMsg: '' })
+        }
+      )
+    } else {
+      this.setState({
+        statusMsg: 'You may not submit without values for both the title and the URL'
+      })
+    }
     this.clearInputs()
   }
 
   clearInputs = () => {
     this.setState({ title: '', urlToShorten: '' })
+  }
+
+  validateInputs = () => {
+    return this.state.title && this.state.urlToShorten ? true : false
   }
 
   render() {
@@ -52,6 +63,7 @@ class UrlForm extends Component {
         <button id='formSubmit' onClick={(e) => this.handleSubmit(e)}>
           Shorten Please!
         </button>
+        <p id='statusMsg'>{this.state.statusMsg}</p>
       </form>
     )
   }

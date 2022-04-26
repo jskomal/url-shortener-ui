@@ -24,7 +24,7 @@ export const App = () => {
         <UrlForm setUrls={setUrls} setErrorMsg={setErrorMsg} />
       </header>
 
-      {urls && <UrlContainer urls={urls} />}
+      {urls && <UrlContainer urls={urls} setErrorMsg={setErrorMsg} setUrls={setUrls} />}
     </main>
   )
 }

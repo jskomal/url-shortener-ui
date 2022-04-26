@@ -19,23 +19,20 @@ const UrlContainer = (props) => {
       })
   }
 
-  let urlEls
-  if (props.urls) {
-    urlEls = props.urls.map((url) => {
-      return (
-        <div className='url' key={url.id} id={url.id}>
-          <h3>{url.title}</h3>
-          <a href={url.short_url} target='blank'>
-            {url.short_url}
-          </a>
-          <p>{url.long_url}</p>
-          <button onClick={handleDelete} id={url.id}>
-            delete
-          </button>
-        </div>
-      )
-    })
-  }
+  const urlEls = props.urls.map((url) => {
+    return (
+      <div className='url' key={url.id} id={url.id}>
+        <h3>{url.title}</h3>
+        <a href={url.short_url} target='blank'>
+          {url.short_url}
+        </a>
+        <p>{url.long_url}</p>
+        <button onClick={handleDelete} id={url.id}>
+          delete
+        </button>
+      </div>
+    )
+  })
 
   return (
     <section>
